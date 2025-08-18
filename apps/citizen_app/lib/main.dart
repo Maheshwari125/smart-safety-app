@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_theme/app_theme.dart';
 import 'package:app_theme/theme_cubit.dart';
-import 'features/home_dashboard_page.dart';
+import 'features/auth/auth_cubit.dart';
+import 'features/auth/auth_gate.dart';
 import 'package:app_shared_ui/panic_button.dart';
 
 void main() {
@@ -15,8 +16,11 @@ class CitizenApp extends StatelessWidget {
 
 	@override
 	Widget build(BuildContext context) {
-		return BlocProvider(
-			create: (_) => ThemeCubit(),
+		return MultiBlocProvider(
+			providers: [
+				BlocProvider(create: (_) => ThemeCubit()),
+				BlocProvider(create: (_) => AuthCubit()),
+			],
 			child: BlocBuilder<ThemeCubit, ThemeMode>(
 				builder: (context, themeMode) {
 					return MaterialApp(
@@ -38,17 +42,24 @@ class _Shell extends StatelessWidget {
 	@override
 	Widget build(BuildContext context) {
 		return Stack(
-			children: [
-				const HomeDashboardPage(),
-				Positioned(
-					bottom: 24,
-					left: 0,
-					right: 0,
-					child: Center(
-						child: PanicButton(label: 'Panic', onPressed: () {}),
-					),
-				),
+			children: const [
+				AuthGate(),
+				PositionedPanic(),
 			],
+		);
+	}
+}
+
+class PositionedPanic extends StatelessWidget {
+	const PositionedPanic({super.key});
+
+	@override
+	Widget build(BuildContext context) {
+		return Positioned(
+			bottom: 24,
+			left: 0,
+			right: 0,
+			child: Center(child: PanicButton(label: 'Panic', onPressed: () {})),
 		);
 	}
 }
