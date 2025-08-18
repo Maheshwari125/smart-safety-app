@@ -1,0 +1,27 @@
+name: citizen_app
+description: Citizen app for Emergency Super-App
+publish_to: "none"
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+  flutter: ">=3.22.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  flutter_bloc: ^8.1.4
+  google_fonts: ^6.1.0
+  app_theme:
+    path: ../../packages/app_theme
+  app_shared_ui:
+    path: ../../packages/app_shared_ui
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true

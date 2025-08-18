@@ -1,0 +1,4 @@
+name: emergency_super_app
+packages:
+  - apps/*
+  - packages/*
